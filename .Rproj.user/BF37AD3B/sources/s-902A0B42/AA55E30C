@@ -7,13 +7,13 @@
     "folds" : "",
     "hash" : "0",
     "id" : "AA55E30C",
-    "lastKnownWriteTime" : 1593467868,
-    "last_content_update" : 1593467868860,
+    "lastKnownWriteTime" : 1593468048,
+    "last_content_update" : 1593468048177,
     "path" : "C:/Users/martina9/Desktop/Git/TumorEvolution/R/make_cna.R",
     "project_path" : "R/make_cna.R",
     "properties" : {
-        "cursorPosition" : "114,76",
-        "scrollLine" : "94",
+        "cursorPosition" : "21,50",
+        "scrollLine" : "11",
         "tempName" : "Untitled1"
     },
     "read_only" : false,

@@ -19,7 +19,7 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
                          cval = 100, snp.nbhd = 250,epsilon = 0.005){
 
   cnas <- lapply(cna.files, function(x){
-    rcmat <- readSnpMatrix(filename=paste0(path,".",x))
+    rcmat <- readSnpMatrix(filename=paste0(path,"/",x))
     nor.dp <- rcmat$NOR.DP
     tum.dp <- rcmat$TUM.DP
 
