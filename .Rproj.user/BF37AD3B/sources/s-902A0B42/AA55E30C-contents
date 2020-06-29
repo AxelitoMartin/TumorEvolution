@@ -18,7 +18,7 @@
 make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NULL,
                          cval = 100, snp.nbhd = 250,epsilon = 0.005){
 
-  cnas <- lapply(files, function(x){
+  cnas <- lapply(cna.files, function(x){
     rcmat <- readSnpMatrix(filename=paste0(path,".",x))
     nor.dp <- rcmat$NOR.DP
     tum.dp <- rcmat$TUM.DP
@@ -51,11 +51,11 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
   temp <- as.data.frame(do.call('rbind',cnas)) %>%
     select(ID, chrom, loc.start, loc.end, num.mark, seg.mean)
 
-  outcome = files
-  names(outcome) <- files
-  facets.heatmap(seg = temp,epsilon = 0,outcome = outcome,patients=files)
+  outcome = cna.files
+  names(outcome) <- cna.files
+  facets.heatmap(seg = temp,epsilon = 0,outcome = outcome,patients=cna.files)
 
-  info <- lapply(files, function(x){
+  info <- lapply(cna.files, function(x){
     rcmat <- readSnpMatrix(filename=paste0(path,"/",x))
     nor.dp <- rcmat$NOR.DP
     tum.dp <- rcmat$TUM.DP
@@ -112,7 +112,7 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
   epsm <- sapply(info,"[[","eps_m")
 
   if(is.null(sample.names))
-    colnames(WM) <- colnames(Wm) <- colnames(epsM) <- colnames(epsm) <- files
+    colnames(WM) <- colnames(Wm) <- colnames(epsM) <- colnames(epsm) <- cna.files
   else
     colnames(WM) <- colnames(Wm) <- colnames(epsM) <- colnames(epsm) <- sample.names
   rownames(WM) <- rownames(Wm) <- rownames(epsM) <- rownames(epsm) <- colnames(out)
@@ -123,4 +123,5 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
   epsM <- epsM[-which(to.rm), ]
   epsm <- epsm[-which(to.rm), ]
 
+  return(list("WM" = WM, "Wm" = Wm, "epsM" = epsM, "epsm" = epsm))
 }
