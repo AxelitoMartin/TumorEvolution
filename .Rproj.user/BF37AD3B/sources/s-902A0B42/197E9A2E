@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1593457092413.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1695847006",
+    "id" : "197E9A2E",
+    "lastKnownWriteTime" : 1593457993,
+    "last_content_update" : 1593457993989,
+    "path" : "C:/Users/martina9/Desktop/Git/TumorEvolution/R/make_int.R",
+    "project_path" : "R/make_int.R",
+    "properties" : {
+        "cursorPosition" : "0,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

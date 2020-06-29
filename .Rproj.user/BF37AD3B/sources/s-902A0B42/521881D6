@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1593460338458.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "521881D6",
+    "lastKnownWriteTime" : 1593462951,
+    "last_content_update" : 1593462951246,
+    "path" : "C:/Users/martina9/Desktop/Git/TumorEvolution/R/run_canopy.R",
+    "project_path" : "R/run_canopy.R",
+    "properties" : {
+        "cursorPosition" : "58,55",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
