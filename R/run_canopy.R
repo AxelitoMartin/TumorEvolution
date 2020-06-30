@@ -19,7 +19,7 @@
 
 
 run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.simrun = 15000, min.simrun = 5000,
-                       path = ".", burnin = 100, thin = 5){
+                       path = ".", burnin = 100, thin = 5,parallel = FALSE){
 
   R <- sna_obj$R
   X <- sna_obj$X
@@ -32,8 +32,8 @@ run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.s
                             Wm = as.matrix(Wm), epsilonM = as.matrix(epsM),
                             epsilonm = as.matrix(epsm),
                             C = NULL, Y = as.matrix(Y), K = K,
-                            numchain = numchain, max.simrun = 5000,
-                            min.simrun = 2500, writeskip = 200,
+                            numchain = numchain, max.simrun = max.simrun,
+                            min.simrun = min.simrun, writeskip = 200,
                             projectname = projectname, cell.line = FALSE,
                             plot.likelihood = TRUE)
 

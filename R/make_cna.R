@@ -18,20 +18,36 @@
 make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NULL,
                          cval = 100, snp.nbhd = 250,epsilon = 0.005){
 
-  cnas <- lapply(cna.files, function(x){
+  preProcFits <- lapply(cna.files, function(x){
     rcmat <- readSnpMatrix(filename=paste0(path,"/",x))
     nor.dp <- rcmat$NOR.DP
     tum.dp <- rcmat$TUM.DP
 
     set.seed(13692)
     xx=preProcSample(rcmat,snp.nbhd = snp.nbhd)
+    xx$name <- x
+    return(xx)
+    # oo=procSample(xx,cval=cval)
+    #
+    # M = 2^(oo$out$cnlr.median+1)/(1 + 1/(sqrt(exp(oo$out$mafR))))
+    # m = 2^(oo$out$cnlr.median+1) - M
+    #
+    # fit=emcncf(oo)
+    # cncf=data.frame(ID=rep(x, nrow(fit$cncf)), chrom=fit$cncf$chrom,
+    #                 loc.start=fit$cncf$start, loc.end=fit$cncf$end,
+    #                 nhet=fit$cncf$nhet, num.mark=fit$cncf$num.mark, fit$cncf[, 5:14],
+    #                 seg.mean = log2(fit$cncf$tcn/fit$ploidy + 1 * 10^(-6)))
+    # return(cncf)
+  })
+
+  cnas <- lapply(preProcFits,function(xx){
     oo=procSample(xx,cval=cval)
 
     M = 2^(oo$out$cnlr.median+1)/(1 + 1/(sqrt(exp(oo$out$mafR))))
     m = 2^(oo$out$cnlr.median+1) - M
 
     fit=emcncf(oo)
-    cncf=data.frame(ID=rep(x, nrow(fit$cncf)), chrom=fit$cncf$chrom,
+    cncf=data.frame(ID=rep(xx$name, nrow(fit$cncf)), chrom=fit$cncf$chrom,
                     loc.start=fit$cncf$start, loc.end=fit$cncf$end,
                     nhet=fit$cncf$nhet, num.mark=fit$cncf$num.mark, fit$cncf[, 5:14],
                     seg.mean = log2(fit$cncf$tcn/fit$ploidy + 1 * 10^(-6)))
@@ -55,13 +71,13 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
   names(outcome) <- cna.files
   facets.heatmap(seg = temp,epsilon = 0,outcome = outcome,patients=cna.files)
 
-  info <- lapply(cna.files, function(x){
-    rcmat <- readSnpMatrix(filename=paste0(path,"/",x))
-    nor.dp <- rcmat$NOR.DP
-    tum.dp <- rcmat$TUM.DP
-
-    set.seed(13692)
-    xx=preProcSample(rcmat,snp.nbhd = snp.nbhd)
+  info <- lapply(preProcFits, function(xx){
+    # rcmat <- readSnpMatrix(filename=paste0(path,"/",x))
+    # nor.dp <- rcmat$NOR.DP
+    # tum.dp <- rcmat$TUM.DP
+    #
+    # set.seed(13692)
+    # xx=preProcSample(rcmat,snp.nbhd = snp.nbhd)
 
     adj.count <- sum(xx$jointseg$rCountN)/sum(xx$jointseg$rCountT)
 
