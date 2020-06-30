@@ -73,7 +73,7 @@ canopy_plottree_mod <- function (tree, pdf = NULL, pdf.name = NULL, txt = NULL, 
   par(mar = c(1, 7, 0.5, 9.5))
   P = tree$P
   image(1:nrow(P), 1:ncol(P), axes = FALSE, ylab = "", xlab = "",
-        P, breaks = 0:100/100, col = tim.colors(100))
+        P, breaks = 0:100/100, col = fields::tim.colors(100))
   axis(4, at = 1:ncol(P), colnames(P), cex.axis = 1.2, las = 1,
        tick = FALSE)
   abline(h = seq(0.5, ncol(P) + 0.5, 1), v = seq(0.5, nrow(P) +
