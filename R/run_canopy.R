@@ -8,7 +8,7 @@
 #' @param max.simrun Maximum number of simulations to perform before convergence. Default is 15000.
 #' @param min.simrun Minimum number of simulations to perform before convergence. Default is 5000.
 #' @param path Relative path to where results should be saved. Default is current directory.
-#' @param burnin Burn-in period for the MCMC. Default is 100.
+#' @param burnin Burn-in period for the MCMC. Default is 10.
 #' @param thin Thining parameter for the MCMC. Default is 5.
 #' @return Y
 #' @export
@@ -20,7 +20,7 @@
 
 
 run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.simrun = 15000, min.simrun = 5000,
-                       path = ".", burnin = 100, thin = 5,parallel = FALSE){
+                       path = ".", burnin = 10, thin = 5,parallel = FALSE){
 
   R <- sna_obj$R
   X <- sna_obj$X
@@ -53,10 +53,6 @@ run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.s
   # choose the configuration with the highest posterior likelihood
   config.i = config.summary[which.max(config.summary[,3]),1]
   output.tree = canopy.output(post, config.i, C=NULL)
-  # pdf.name = paste(projectname, '_config_highest_likelihood.pdf', sep='')
-  # canopy.plottree(output.tree, pdf = TRUE, pdf.name = pdf.name)
-  # canopy.plottree(output.tree, pdf = FALSE,txt = TRUE,txt.name = "results/MSK0005_example_muts.txt")
-  canopy_plottree_mod(output.tree, pdf = FALSE,save = TRUE,rdata.name = paste0(path,"/",projectname,"_muts.Rdata"))
-  save(output.tree,file = paste0(path,"/",projectname,".Rdata"))
+  return(output.tree)
 
 }

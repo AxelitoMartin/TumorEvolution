@@ -14,7 +14,7 @@ run_canopy(
   max.simrun = 15000,
   min.simrun = 5000,
   path = ".",
-  burnin = 100,
+  burnin = 10,
   thin = 5,
   parallel = FALSE
 )
@@ -38,7 +38,7 @@ run_canopy(
 
 \item{path}{Relative path to where results should be saved. Default is current directory.}
 
-\item{burnin}{Burn-in period for the MCMC. Default is 100.}
+\item{burnin}{Burn-in period for the MCMC. Default is 10.}
 
 \item{thin}{Thining parameter for the MCMC. Default is 5.}
 }
