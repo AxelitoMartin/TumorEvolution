@@ -15,7 +15,7 @@ Remotes:
   AxelitoMartin/gnomeR,
   veseshan/pctGCdata,
   mskcc/facets,
-  yuchaojiang/Canopy
+  yuchaojiang/Canopy/package
 Imports:
   Hmisc,
   plyr,
