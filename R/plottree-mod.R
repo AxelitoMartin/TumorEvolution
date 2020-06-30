@@ -14,8 +14,6 @@
 #' \dontrun{
 #' canopy.plottree.mod(tree, pdf = NULL, pdf.name = NULL, txt = NULL, txt.name = NULL,save = FALSE, rdata.name = NULL)
 #' }
-#' @import
-#' Canopy
 
 canopy_plottree_mod <- function (tree, pdf = NULL, pdf.name = NULL, txt = NULL, txt.name = NULL,save = FALSE, rdata.name = NULL)
 {
@@ -46,8 +44,8 @@ canopy_plottree_mod <- function (tree, pdf = NULL, pdf.name = NULL, txt = NULL, 
   K = ncol(tree$Z)
   plot(tree, label.offset = 0.1, type = "cladogram", direction = "d",
        show.tip.label = FALSE)
-  nodelabels()
-  tiplabels()
+  ape::nodelabels()
+  ape::tiplabels()
   snaedge = rep(NA, nrow(tree$sna))
   for (k in 1:nrow(tree$sna)) {
     snaedge[k] = intersect(which(tree$edge[, 1] == tree$sna[k,
