@@ -4,9 +4,20 @@
 \alias{run_canopy}
 \title{Run Canopy}
 \usage{
-run_canopy(sna_obj, cna_obj, Y, projectname, K, numchain = 15,
-  max.simrun = 15000, min.simrun = 5000, path = ".", burnin = 100,
-  thin = 5)
+run_canopy(
+  sna_obj,
+  cna_obj,
+  Y,
+  projectname,
+  K,
+  numchain = 15,
+  max.simrun = 15000,
+  min.simrun = 5000,
+  path = ".",
+  burnin = 100,
+  thin = 5,
+  parallel = FALSE
+)
 }
 \arguments{
 \item{sna_obj}{An output object from the make_sna_mat() function.}

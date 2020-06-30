@@ -4,8 +4,14 @@
 \alias{make_cna_mat}
 \title{Create a Canopy ready CNA matrix and their corresponding variance matrices}
 \usage{
-make_cna_mat(cna.files = list.files(), path = ".",
-  sample.names = NULL, cval = 100, snp.nbhd = 250, epsilon = 0.005)
+make_cna_mat(
+  cna.files = list.files(),
+  path = ".",
+  sample.names = NULL,
+  cval = 100,
+  snp.nbhd = 250,
+  epsilon = 0.005
+)
 }
 \arguments{
 \item{cna.files}{Names of the files to be read in and processed. Default will be all the files found in the working directory.}

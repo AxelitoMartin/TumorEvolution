@@ -4,8 +4,7 @@
 \alias{make_sna_mat}
 \title{Create a Canopy ready SNA matrices}
 \usage{
-make_sna_mat(mut.files = list.files(), path = ".",
-  sample.names = NULL)
+make_sna_mat(mut.files = list.files(), path = ".", sample.names = NULL)
 }
 \arguments{
 \item{mut.files}{Names of the files to be read in and processed. Default will be all the files found in the working directory.}

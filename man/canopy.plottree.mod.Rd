@@ -4,8 +4,15 @@
 \alias{canopy.plottree.mod}
 \title{Split confCI character}
 \usage{
-canopy.plottree.mod(tree, pdf = NULL, pdf.name = NULL, txt = NULL,
-  txt.name = NULL, save = FALSE, rdata.name = NULL)
+canopy.plottree.mod(
+  tree,
+  pdf = NULL,
+  pdf.name = NULL,
+  txt = NULL,
+  txt.name = NULL,
+  save = FALSE,
+  rdata.name = NULL
+)
 }
 \value{
 tree, mutation list
