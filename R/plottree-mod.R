@@ -62,13 +62,13 @@ canopy_plottree_mod <- function (tree, pdf = NULL, pdf.name = NULL, txt = NULL, 
     cnaedge = NULL
   }
   edge.label = sort(unique(c(snaedge, cnaedge)))
-  edgelabels(paste("mut", 1:length(edge.label), sep = ""),
+  ape::edgelabels(paste("mut", 1:length(edge.label), sep = ""),
              edge.label, frame = "n", col = 2, cex = 1.2)
-  tiplabels("Normal", 1, adj = c(0.2, 1.5), frame = "n", cex = 1.2,
+  ape::tiplabels("Normal", 1, adj = c(0.2, 1.5), frame = "n", cex = 1.2,
             col = 4)
-  tiplabels(paste("Clone", 1:(K - 2), sep = ""), 2:(K - 1),
+  ape::tiplabels(paste("Clone", 1:(K - 2), sep = ""), 2:(K - 1),
             adj = c(0.5, 1.5), frame = "n", cex = 1.2, col = 4)
-  tiplabels(paste("Clone", (K - 1), sep = ""), K, adj = c(0.8,
+  ape::tiplabels(paste("Clone", (K - 1), sep = ""), K, adj = c(0.8,
                                                           1.5), frame = "n", cex = 1.2, col = 4)
   par(mar = c(1, 7, 0.5, 9.5))
   P = tree$P
