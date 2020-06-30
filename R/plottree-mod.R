@@ -14,6 +14,8 @@
 #' \dontrun{
 #' canopy.plottree.mod(tree, pdf = NULL, pdf.name = NULL, txt = NULL, txt.name = NULL,save = FALSE, rdata.name = NULL)
 #' }
+#' @import
+#' Canopy
 
 canopy_plottree_mod <- function (tree, pdf = NULL, pdf.name = NULL, txt = NULL, txt.name = NULL,save = FALSE, rdata.name = NULL)
 {
