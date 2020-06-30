@@ -12,3 +12,8 @@ xx.l, xx.u
 \description{
 Split confCI character
 }
+\examples{
+\dontrun{
+computeCCF(vaf, tt, minor, purity, multiplicity=NULL)
+}
+}

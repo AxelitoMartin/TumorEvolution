@@ -13,7 +13,7 @@
 #' @examples
 #' @import
 #' Hmisc
-#' plyr
+#' dplyr
 
 germline_filter<-function(mat, purity, alpha=.05, plot=TRUE,sample){
   all<-list()

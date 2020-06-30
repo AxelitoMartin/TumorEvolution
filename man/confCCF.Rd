@@ -2,13 +2,33 @@
 % Please edit documentation in R/help_functions.R
 \name{confCCF}
 \alias{confCCF}
-\title{Confidence interval for CCF at a default alpha of 0.05 or 95% CI}
+\title{confCCF}
 \usage{
 confCCF(alt, ref, tt, minor, purity, multiplicity, alpha = 0.05)
+}
+\arguments{
+\item{alt}{alt}
+
+\item{ref}{ref}
+
+\item{tt}{tt}
+
+\item{minor}{minor}
+
+\item{purity}{purity}
+
+\item{multiplicity}{multiplicity}
+
+\item{alpha}{alpha}
 }
 \value{
 lower, upper
 }
 \description{
 Confidence interval for CCF at a default alpha of 0.05 or 95% CI
+}
+\examples{
+\dontrun{
+computeCCF(vaf, tt, minor, purity, multiplicity=NULL)
+}
 }

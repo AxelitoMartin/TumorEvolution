@@ -2,13 +2,29 @@
 % Please edit documentation in R/help_functions.R
 \name{computeCCF}
 \alias{computeCCF}
-\title{Compute CCF and multiplicity issue in major and minor CN.}
+\title{computeCCF}
 \usage{
 computeCCF(vaf, tt, minor, purity, multiplicity = NULL)
+}
+\arguments{
+\item{vaf}{vaf}
+
+\item{tt}{tt}
+
+\item{minor}{minor}
+
+\item{purity}{purity}
+
+\item{multiplicity}{multiplicity}
 }
 \value{
 ccf, rawccf, out, multiplicity
 }
 \description{
 Compute CCF and multiplicity issue in major and minor CN.
+}
+\examples{
+\dontrun{
+computeCCF(vaf, tt, minor, purity, multiplicity=NULL)
+}
 }

@@ -18,7 +18,6 @@ Remotes:
   yuchaojiang/Canopy/package
 Imports:
   Hmisc,
-  plyr,
   dplyr,
   dtplyr,
   facets,
@@ -26,3 +25,9 @@ Imports:
   gnomeR,
   Canopy,
   KernSmooth
+Suggests: 
+  knitr,
+  rmarkdown,
+  testthat,
+  spelling,
+  covr

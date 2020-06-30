@@ -12,3 +12,8 @@ ccf, multiplicity, clonal_status, ccfCI
 \description{
 Calculate expected germline and somatic VAFs along with their CI given tcn and multiplicity
 }
+\examples{
+\dontrun{
+computeCCF(vaf, tt, minor, purity, multiplicity=NULL)
+}
+}

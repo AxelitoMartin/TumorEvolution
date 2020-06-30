@@ -6,9 +6,25 @@
 \usage{
 get_ccf(alt, total, tcn, lcn, purity)
 }
+\arguments{
+\item{alt}{alt}
+
+\item{total}{total}
+
+\item{tcn}{tcn}
+
+\item{lcn}{lcn}
+
+\item{purity}{purity}
+}
 \value{
 ccf, multiplicity, clonal_status, ccfCI
 }
 \description{
 Wrapper function to get necessary things from CCF
+}
+\examples{
+\dontrun{
+computeCCF(vaf, tt, minor, purity, multiplicity=NULL)
+}
 }

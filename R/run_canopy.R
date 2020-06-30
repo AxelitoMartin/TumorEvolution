@@ -56,7 +56,7 @@ run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.s
   # pdf.name = paste(projectname, '_config_highest_likelihood.pdf', sep='')
   # canopy.plottree(output.tree, pdf = TRUE, pdf.name = pdf.name)
   # canopy.plottree(output.tree, pdf = FALSE,txt = TRUE,txt.name = "results/MSK0005_example_muts.txt")
-  canopy.plottree.mod(output.tree, pdf = FALSE,save = TRUE,rdata.name = paste0(path,"/",projectname,"_muts.Rdata"))
+  canopy_plottree_mod(output.tree, pdf = FALSE,save = TRUE,rdata.name = paste0(path,"/",projectname,"_muts.Rdata"))
   save(output.tree,file = paste0(path,"/",projectname,".Rdata"))
 
 }
