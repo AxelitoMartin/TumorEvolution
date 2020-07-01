@@ -20,7 +20,7 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = "."){
   outcome = dat_facets$ID
   names(outcome) <- dat_facets$ID
   out <- facets.heatmap(seg = dat_facets,epsilon = 0,outcome = outcome,patients=dat_facets$ID)
-  out$p
+  print(out$p)
 
   out <- pheatmap(t(tree$CCF),fontsize_col = 4.2)
   out
