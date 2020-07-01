@@ -22,14 +22,14 @@ make_sna_mat <- function(mut.files = list.files(), path = ".", sample.names = NU
     pos <- c(pos,get(paste0("s",i,"_sna"))$pos)
   }
   pos <- unique(pos)
-  R <- as.data.frame(matrix(ncol = 8, nrow = length(pos)))
+  R <- as.data.frame(matrix(ncol = length(mut.files), nrow = length(pos)))
   rownames(R) <- pos
   if(is.null(sample.names))
     colnames(R) <- mut.files
   else
     colnames(R) <- sample.names
 
-  X <- as.data.frame(matrix(ncol = 8, nrow = length(pos)))
+  X <- as.data.frame(matrix(ncol = length(mut.files), nrow = length(pos)))
   rownames(X) <- pos
   colnames(X) <- colnames(R)
 

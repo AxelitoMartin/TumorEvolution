@@ -9,11 +9,10 @@ opt_phylo(
   projectname,
   K,
   numchain = 15,
-  max.simrun = 1e+05,
-  min.simrun = 10000,
   path = ".",
   burnin = 10,
-  thin = 5
+  thin = 5,
+  cutoff = 0.05
 )
 }
 \arguments{
@@ -25,15 +24,13 @@ opt_phylo(
 
 \item{numchain}{Number of chains for the MCMC. Default is 15.}
 
-\item{max.simrun}{Maximum number of simulations to perform before convergence. Default is 15000.}
-
-\item{min.simrun}{Minimum number of simulations to perform before convergence. Default is 5000.}
-
 \item{path}{Relative path to where results should be saved. Default is current directory.}
 
 \item{burnin}{Burn-in period for the MCMC. Default is 10.}
 
 \item{thin}{Thining parameter for the MCMC. Default is 5.}
+
+\item{cutoff}{post configuration cutoff. Default is 0.05}
 }
 \value{
 Optimal phylogeny.

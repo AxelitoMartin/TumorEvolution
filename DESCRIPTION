@@ -24,7 +24,9 @@ Imports:
   pctGCdata,
   gnomeR,
   Canopy,
-  KernSmooth
+  KernSmooth,
+  magrittr,
+  rlang
 Suggests: 
   knitr,
   rmarkdown,
