@@ -14,7 +14,6 @@
 
 get_results_canopy <- function(cna.obj, tree, projectname, path = "."){
 
-  pdf("results/MSK0005_results.pdf",width = 12)
   pdf(paste0(path,"/",projectname,"_results.pdf"),width = 12)
 
   dat_facets <- cna$dat_facets
