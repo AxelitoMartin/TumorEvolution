@@ -5,11 +5,11 @@
 #' @param projectname Name of the project to save results.
 #' @param K Vector of the number of clones to be used.
 #' @param numchain Number of chains for the MCMC. Default is 15.
-#' @param max.simrun Maximum number of simulations to perform before convergence. Default is 15000.
-#' @param min.simrun Minimum number of simulations to perform before convergence. Default is 5000.
-#' @param path Relative path to where results should be saved. Default is current directory.
+#' @param max.simrun Maximum number of simulations to perform before convergence. Default is 100000.
+#' @param min.simrun Minimum number of simulations to perform before convergence. Default is 10000.
 #' @param burnin Burn-in period for the MCMC. Default is 10.
 #' @param thin Thining parameter for the MCMC. Default is 5.
+#' @param parallel Should this be run in parallel. Default is FALSE.
 #' @return Y
 #' @export
 #' @examples
@@ -19,8 +19,8 @@
 #' Canopy
 
 
-run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.simrun = 15000, min.simrun = 5000,
-                       path = ".", burnin = 10, thin = 5,parallel = FALSE){
+run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.simrun = 100000, min.simrun = 10000,
+                       burnin = 10, thin = 5,parallel = FALSE){
 
   R <- sna_obj$R
   X <- sna_obj$X
@@ -38,21 +38,6 @@ run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.s
                             projectname = projectname, cell.line = FALSE,
                             plot.likelihood = TRUE)
 
-  bic = canopy.BIC(sampchain = sampchain, projectname = projectname, K = K,
-                   numchain = numchain, burnin = burnin, thin = thin, pdf = FALSE)
-  optK = K[which.max(bic)]
-
-  post = canopy.post(sampchain = sampchain, projectname = projectname, K = K,
-                     numchain = numchain, burnin = burnin, thin = thin,
-                     optK = optK, post.config.cutoff = 0.05)
-  samptreethin = post[[1]]   # list of all post-burnin and thinning trees
-  samptreethin.lik = post[[2]]   # likelihoods of trees in samptree
-  config = post[[3]]
-  config.summary = post[[4]]
-
-  # choose the configuration with the highest posterior likelihood
-  config.i = config.summary[which.max(config.summary[,3]),1]
-  output.tree = canopy.output(post, config.i, C=NULL)
-  return(output.tree)
+  return(sampchain)
 
 }

@@ -11,9 +11,8 @@ run_canopy(
   projectname,
   K,
   numchain = 15,
-  max.simrun = 15000,
-  min.simrun = 5000,
-  path = ".",
+  max.simrun = 1e+05,
+  min.simrun = 10000,
   burnin = 10,
   thin = 5,
   parallel = FALSE
@@ -32,15 +31,15 @@ run_canopy(
 
 \item{numchain}{Number of chains for the MCMC. Default is 15.}
 
-\item{max.simrun}{Maximum number of simulations to perform before convergence. Default is 15000.}
+\item{max.simrun}{Maximum number of simulations to perform before convergence. Default is 100000.}
 
-\item{min.simrun}{Minimum number of simulations to perform before convergence. Default is 5000.}
-
-\item{path}{Relative path to where results should be saved. Default is current directory.}
+\item{min.simrun}{Minimum number of simulations to perform before convergence. Default is 10000.}
 
 \item{burnin}{Burn-in period for the MCMC. Default is 10.}
 
 \item{thin}{Thining parameter for the MCMC. Default is 5.}
+
+\item{parallel}{Should this be run in parallel. Default is FALSE.}
 }
 \value{
 Y
