@@ -16,10 +16,12 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = "."){
 
   pdf("results/MSK0005_results.pdf",width = 12)
   pdf(paste0(path,"/",projectname,"_results.pdf"),width = 12)
-  dat_facets <- cna.obj$dat_facets
-  outcome = rownames(dat_facets) #gsub("MSK-AB-0005-|-|_",".",files)
-  names(outcome) <- rownames(dat_facets)
-  facets.heatmap(seg = dat_facets,epsilon = 0,outcome = outcome,patients=rownames(dat_facets))
+
+  dat_facets <- cna$dat_facets
+  outcome = dat_facets$ID
+  names(outcome) <- dat_facets$ID
+  out <- facets.heatmap(seg = dat_facets,epsilon = 0,outcome = outcome,patients=dat_facets$ID)
+  out$p
 
   out <- pheatmap(t(tree$CCF),fontsize_col = 4.2)
   out
