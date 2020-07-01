@@ -17,16 +17,17 @@ Remotes:
   mskcc/facets,
   yuchaojiang/Canopy/package
 Imports:
-  Hmisc,
-  dplyr,
-  dtplyr,
-  facets,
-  pctGCdata,
-  gnomeR,
-  Canopy,
-  KernSmooth,
-  magrittr,
-  rlang
+    Hmisc,
+    dplyr,
+    dtplyr,
+    facets,
+    pctGCdata,
+    gnomeR,
+    Canopy,
+    KernSmooth,
+    magrittr,
+    rlang,
+    pheatmap
 Suggests: 
   knitr,
   rmarkdown,

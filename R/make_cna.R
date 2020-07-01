@@ -139,5 +139,8 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
   epsM <- epsM[-which(to.rm), ]
   epsm <- epsm[-which(to.rm), ]
 
-  return(list("WM" = WM, "Wm" = Wm, "epsM" = epsM, "epsm" = epsm))
+  dat_facets <- as.data.frame(do.call('rbind',cnas)) %>%
+    select(ID, chrom, loc.start, loc.end, num.mark, seg.mean)
+
+  return(list("WM" = WM, "Wm" = Wm, "epsM" = epsM, "epsm" = epsm,"dat_facets" = dat_facets))
 }
