@@ -48,8 +48,8 @@ make_sna_mat <- function(mut.files = list.files(), path = ".", sample.names = NU
 
   pos <- c()
   for(i in 1:length(mut.files)){
-    pos <- c(pos,paste0(get(paste0("s",i,"_sna"))$chr),"_",
-             get(paste0("s",i,"_sna"))$pos)
+    pos <- c(pos,paste0(get(paste0("s",i,"_sna"))$chr,"_",
+             get(paste0("s",i,"_sna"))$pos))
 
   }
   pos <- unique(pos)
