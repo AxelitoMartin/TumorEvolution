@@ -54,6 +54,8 @@ make_sna_mat <- function(mut.files = list.files(), path = ".", sample.names = NU
   }
   pos <- unique(pos)
 
+  rownames(X) <- pos
+  rownames(R) <- pos
 
   return(list("X"=X, "R"=R))
 }
