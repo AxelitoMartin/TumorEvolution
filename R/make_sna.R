@@ -43,7 +43,7 @@ make_sna_mat <- function(mut.files = list.files(), path = ".", sample.names = NU
       }
     }
   }
-  X[is.na(X)] <- 1
+  X[is.na(X)] <- 0
   R[is.na(R)] <- 0
 
   pos <- c()
