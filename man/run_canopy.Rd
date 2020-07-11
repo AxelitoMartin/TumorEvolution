@@ -15,7 +15,8 @@ run_canopy(
   min.simrun = 10000,
   burnin = 10,
   thin = 5,
-  parallel = FALSE
+  parallel = FALSE,
+  nCores = 1
 )
 }
 \arguments{
