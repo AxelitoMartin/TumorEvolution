@@ -29,7 +29,8 @@ Imports:
     rlang,
     pheatmap,
     foreach,
-    parallel
+    parallel,
+    doParallel
 Suggests: 
   knitr,
   rmarkdown,
