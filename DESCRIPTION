@@ -27,7 +27,9 @@ Imports:
     KernSmooth,
     magrittr,
     rlang,
-    pheatmap
+    pheatmap,
+    foreach,
+    parallel
 Suggests: 
   knitr,
   rmarkdown,
