@@ -43,17 +43,19 @@ make_sna_mat <- function(mut.files = list.files(), path = ".", sample.names = NU
       }
     }
   }
-  X[is.na(X)] <- 1
+  X[is.na(X)] <- 0
   R[is.na(R)] <- 0
 
   pos <- c()
   for(i in 1:length(mut.files)){
-    pos <- c(pos,paste0(get(paste0("s",i,"_sna"))$chr),"_",
-             get(paste0("s",i,"_sna"))$pos)
+    pos <- c(pos,paste0(get(paste0("s",i,"_sna"))$chr,"_",
+             get(paste0("s",i,"_sna"))$pos))
 
   }
   pos <- unique(pos)
 
+  rownames(X) <- pos
+  rownames(R) <- pos
 
   return(list("X"=X, "R"=R))
 }
