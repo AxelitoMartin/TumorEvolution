@@ -45,29 +45,16 @@ run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.s
     cl <- makeCluster(nCores)
     registerDoParallel(cl)
 
-    # sampchain <- parLapply(cl, K, function(k, R, X, WM, Wm, epsilonM, epsilonm, Y){
-    #   sampchainOut <- canopy.sample(R = as.matrix(R), X = as.matrix(X), WM = as.matrix(WM),
-    #                             Wm = as.matrix(Wm), epsilonM = as.matrix(epsM),
-    #                             epsilonm = as.matrix(epsm),
-    #                             C = NULL, Y = as.matrix(Y), K = k,
-    #                             numchain = numchain, max.simrun = max.simrun,
-    #                             min.simrun = min.simrun, writeskip = 200,
-    #                             projectname = projectname, cell.line = FALSE,
-    #                             plot.likelihood = FALSE)
-    #   return(sampchainOut)
-    # }, R=R, X=X, WM=WM, Wm=Wm, epsilonM=epsilonM, epsilonm=epsilonm, Y=Y)
-
     sampchain <- foreach(k=K) %dopar% {
-
-      sampchainOut = canopy.sample(R = as.matrix(R), X = as.matrix(X), WM = as.matrix(WM),
-                                   Wm = as.matrix(Wm), epsilonM = as.matrix(epsM),
-                                   epsilonm = as.matrix(epsm),
-                                   C = NULL, Y = as.matrix(Y), K = as.numeric(k),
-                                   numchain = numchain, max.simrun = max.simrun,
-                                   min.simrun = min.simrun, writeskip = 200,
-                                   projectname = projectname, cell.line = FALSE,
-                                   plot.likelihood = FALSE)
-
+      sampchainOut <-
+        Canopy::canopy.sample(R = as.matrix(R), X = as.matrix(X), WM = as.matrix(WM),
+                      Wm = as.matrix(Wm), epsilonM = as.matrix(epsM),
+                      epsilonm = as.matrix(epsm),
+                      C = NULL, Y = as.matrix(Y), K = as.numeric(k),
+                      numchain = numchain, max.simrun = max.simrun,
+                      min.simrun = min.simrun, writeskip = 200,
+                      projectname = projectname, cell.line = FALSE,
+                      plot.likelihood = FALSE)
       return(sampchainOut)
     }
 
