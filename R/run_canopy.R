@@ -43,6 +43,7 @@ run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.s
 
   if(parallel){
     cl <- makeCluster(nCores)
+    registerDoParallel(cl)
 
     # sampchain <- parLapply(cl, K, function(k, R, X, WM, Wm, epsilonM, epsilonm, Y){
     #   sampchainOut <- canopy.sample(R = as.matrix(R), X = as.matrix(X), WM = as.matrix(WM),
