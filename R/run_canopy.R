@@ -42,7 +42,7 @@ run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.s
   if(parallel){
     cl <- makeCluster(nCores)
 
-    sampchain <- parLapply(cl, K, function(k){
+    sampchain <- parLapply(cl, K, function(k, R, X, WM, Wm, epsilonM, epsilonm, Y){
       canopy.sample(R = as.matrix(R), X = as.matrix(X), WM = as.matrix(WM),
                                 Wm = as.matrix(Wm), epsilonM = as.matrix(epsM),
                                 epsilonm = as.matrix(epsm),
@@ -51,7 +51,7 @@ run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.s
                                 min.simrun = min.simrun, writeskip = 200,
                                 projectname = projectname, cell.line = FALSE,
                                 plot.likelihood = FALSE)
-    })
+    }, R=R, X=X, WM=WM, Wm=Wm, epsilonM=epsilonM, epsilonm=epsilonm, Y=Y)
 
     stopCluster(cl)
   }
