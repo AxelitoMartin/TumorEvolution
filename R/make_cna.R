@@ -133,11 +133,11 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
     colnames(WM) <- colnames(Wm) <- colnames(epsM) <- colnames(epsm) <- sample.names
   rownames(WM) <- rownames(Wm) <- rownames(epsM) <- rownames(epsm) <- colnames(out)
 
-  to.rm <- unique(c(apply(epsM, 1, anyNA),apply(epsm, 1, anyNA)))
-  WM <- WM[-which(to.rm), ]
-  Wm <- Wm[-which(to.rm), ]
-  epsM <- epsM[-which(to.rm), ]
-  epsm <- epsm[-which(to.rm), ]
+  to.rm <- unique(c(which(apply(epsM, 1, anyNA)),which(apply(epsm, 1, anyNA))))
+  WM <- WM[-to.rm, ]
+  Wm <- Wm[-to.rm, ]
+  epsM <- epsM[-to.rm, ]
+  epsm <- epsm[-to.rm, ]
 
   dat_facets <- as.data.frame(do.call('rbind',cnas)) %>%
     select(ID, chrom, loc.start, loc.end, num.mark, seg.mean)
