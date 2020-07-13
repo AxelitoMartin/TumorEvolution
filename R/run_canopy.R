@@ -42,25 +42,33 @@ run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.s
                               plot.likelihood = FALSE)
 
   if(parallel){
-    cl <- makeCluster(nCores)
-    registerDoParallel(cl)
 
-    sampchain <- foreach(k=K) %dopar% {
-      sampchainOut <-
-        Canopy::canopy.sample(R = as.matrix(R), X = as.matrix(X), WM = as.matrix(WM),
-                      Wm = as.matrix(Wm), epsilonM = as.matrix(epsM),
-                      epsilonm = as.matrix(epsm),
-                      C = NULL, Y = as.matrix(Y), K = as.numeric(k),
-                      numchain = numchain, max.simrun = max.simrun,
-                      min.simrun = min.simrun, writeskip = 200,
-                      projectname = projectname, cell.line = FALSE,
-                      plot.likelihood = FALSE)
-      return(sampchainOut)
-    }
-
-    stopCluster(cl)
+    sampchain = canopy.sample.parallel.mod(R = as.matrix(R), X = as.matrix(X), WM = as.matrix(WM),
+                                           Wm = as.matrix(Wm), epsilonM = as.matrix(epsM),
+                                           epsilonm = as.matrix(epsm),
+                                           C = NULL, Y = as.matrix(Y), K = K,
+                                           numchain = numchain, max.simrun = max.simrun,
+                                           min.simrun = min.simrun, writeskip = 200,
+                                           projectname = projectname, cell.line = FALSE,
+                                           plot.likelihood = FALSE,nCores = nCores)
+    # cl <- makeCluster(nCores)
+    # registerDoParallel(cl)
+    #
+    # sampchain <- foreach(k=K) %dopar% {
+    #   sampchainOut <-
+    #     Canopy::canopy.sample(R = as.matrix(R), X = as.matrix(X), WM = as.matrix(WM),
+    #                   Wm = as.matrix(Wm), epsilonM = as.matrix(epsM),
+    #                   epsilonm = as.matrix(epsm),
+    #                   C = NULL, Y = as.matrix(Y), K = as.numeric(k),
+    #                   numchain = numchain, max.simrun = max.simrun,
+    #                   min.simrun = min.simrun, writeskip = 200,
+    #                   projectname = projectname, cell.line = FALSE,
+    #                   plot.likelihood = FALSE)
+    #   return(sampchainOut)
   }
 
-  return(sampchain)
+  # stopCluster(cl)
+
+return(sampchain)
 
 }
