@@ -133,7 +133,7 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
     colnames(WM) <- colnames(Wm) <- colnames(epsM) <- colnames(epsm) <- sample.names
   rownames(WM) <- rownames(Wm) <- rownames(epsM) <- rownames(epsm) <- colnames(out)
 
-  to.rm <- apply(WM, 1, anyNA)
+  to.rm <- apply(epsM, 1, anyNA)
   WM <- WM[-which(to.rm), ]
   Wm <- Wm[-which(to.rm), ]
   epsM <- epsM[-which(to.rm), ]
