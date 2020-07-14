@@ -109,7 +109,7 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
                       color = temp.color[length(temp.color):1])
   out.mut
 
-  out <- pheatmap(t(tree$CCF),fontsize_col = 4.2,main = "Tree CCF Heatmap")
+  out <- pheatmap(t(tree$CCF[out$tree_row$order,order(apply(CCF,1,mean),decreasing = T)]),fontsize_col = 4.2,main = "Tree CCF Heatmap",cluster_rows = F,cluster_cols = F)
   out
 
   dev.off()
