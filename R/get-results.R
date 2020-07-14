@@ -14,6 +14,7 @@
 #' @import
 #' pheatmap
 #' gnomeR
+#' RColorBrewer
 
 get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
                                path_mut = ".", mut.files,sample.names = NULL){
@@ -101,9 +102,11 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
   colnames(replace.mut) <- colnames(temp)
   rownames(replace.mut) <- rownames(temp)
 
+  temp.color <- colorRampPalette(rev(brewer.pal(n = 7, name = "RdYlBu")))(100)
+
   out.mut <- pheatmap(replace.mut[out$tree_row$order,order(apply(CCF,1,mean),decreasing = T)],
                       fontsize_col = 4.2,cluster_rows = F,cluster_cols = F,main = "Branch Heatmap",
-                      color = c('red','blue'))
+                      color = temp.color[length(temp.color):1])
   out.mut
 
   out <- pheatmap(t(tree$CCF),fontsize_col = 4.2,main = "Tree CCF Heatmap")

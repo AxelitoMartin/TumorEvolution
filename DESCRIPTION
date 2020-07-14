@@ -30,7 +30,8 @@ Imports:
     pheatmap,
     foreach,
     parallel,
-    doParallel
+    doParallel,
+    RColorBrewer
 Suggests: 
   knitr,
   rmarkdown,
