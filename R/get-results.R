@@ -71,7 +71,8 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
   }
   pos <- unique(pos)
   rownames(CCF) <- pos
-  out <- pheatmap(t(CCF[order(apply(CCF,1,mean),decreasing = T),]),fontsize_col = 4.2,cluster_cols = F)
+  out <- pheatmap(t(CCF[order(apply(CCF,1,mean),decreasing = T),]),
+                  fontsize_col = 4.2,cluster_cols = F,main = "CCF Heatmap")
   out
 
   canopy_plottree_mod(tree = tree, save = T, rdata.name = paste0(path,"/",projectname,"_muts.Rdata"))
@@ -100,10 +101,12 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
   colnames(replace.mut) <- colnames(temp)
   rownames(replace.mut) <- rownames(temp)
 
-  out.mut <- pheatmap(replace.mut[out$tree_row$order,order(apply(CCF,1,mean),decreasing = T)],fontsize_col = 4.2,cluster_rows = F,cluster_cols = F)
+  out.mut <- pheatmap(replace.mut[out$tree_row$order,order(apply(CCF,1,mean),decreasing = T)],
+                      fontsize_col = 4.2,cluster_rows = F,cluster_cols = F,main = "Branch Heatmap",
+                      color = c('red','blue'))
   out.mut
 
-  out <- pheatmap(t(tree$CCF),fontsize_col = 4.2)
+  out <- pheatmap(t(tree$CCF),fontsize_col = 4.2,main = "Tree CCF Heatmap")
   out
 
   dev.off()
