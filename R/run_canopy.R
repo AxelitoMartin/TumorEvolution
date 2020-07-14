@@ -9,7 +9,7 @@
 #' @param min.simrun Minimum number of simulations to perform before convergence. Default is 10000.
 #' @param burnin Burn-in period for the MCMC. Default is 10.
 #' @param thin Thining parameter for the MCMC. Default is 5.
-#' @param parallel Should this be run in parallel. Default is FALSE.
+#' @param nCores Number of cores to be used.
 #' @return Y
 #' @export
 #' @examples
@@ -22,7 +22,7 @@
 
 
 run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.simrun = 100000, min.simrun = 10000,
-                       burnin = 10, thin = 5,parallel = FALSE,nCores = 1){
+                       burnin = 10, thin = 5,nCores = NULL){
 
   R <- sna_obj$R
   X <- sna_obj$X
@@ -31,7 +31,7 @@ run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.s
   epsM <- cna_obj$epsM
   epsm <- cna_obj$epsm
 
-  if(!parallel)
+  if(is.null(nCores))
     sampchain = canopy.sample(R = as.matrix(R), X = as.matrix(X), WM = as.matrix(WM),
                               Wm = as.matrix(Wm), epsilonM = as.matrix(epsM),
                               epsilonm = as.matrix(epsm),
@@ -41,7 +41,7 @@ run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.s
                               projectname = projectname, cell.line = FALSE,
                               plot.likelihood = FALSE)
 
-  if(parallel){
+  if(!is.null(nCores)){
 
     sampchain = canopy.sample.parallel.mod(R = as.matrix(R), X = as.matrix(X), WM = as.matrix(WM),
                                            Wm = as.matrix(Wm), epsilonM = as.matrix(epsM),

@@ -4,7 +4,7 @@
 #' @param sample.names Custom names to be given to the samples. Default is NULL.
 #' @param cval Default is 100.
 #' @param snp.nbhd Default is 250.
-#' @param epsilon Default is 0.005.
+#' @param epsilon Default is 0.
 #' @return WM, Wm,epsM, epsm
 #' @export
 #' @examples
@@ -16,8 +16,11 @@
 #' gnomeR
 
 make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NULL,
-                         cval = 100, snp.nbhd = 250,epsilon = 0.005){
+                         cval = 100, snp.nbhd = 250,epsilon = 0){
 
+
+  if(!is.null(sample.names))
+    names(sample.names) <- cna.files
   preProcFits <- lapply(cna.files, function(x){
     rcmat <- readSnpMatrix(filename=paste0(path,"/",x))
     nor.dp <- rcmat$NOR.DP
@@ -25,7 +28,10 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
 
     set.seed(13692)
     xx=preProcSample(rcmat,snp.nbhd = snp.nbhd)
-    xx$name <- x
+    if(!is.null(sample.names))
+      xx$name <- as.character(sample.names[match(x,names(sample.names))])
+    else
+      xx$name <- x
     return(xx)
     # oo=procSample(xx,cval=cval)
     #
@@ -51,10 +57,11 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
                     loc.start=fit$cncf$start, loc.end=fit$cncf$end,
                     nhet=fit$cncf$nhet, num.mark=fit$cncf$num.mark, fit$cncf[, 5:14],
                     seg.mean = log2(fit$cncf$tcn/fit$ploidy + 1 * 10^(-6)))
-    return(cncf)
+
+    return(list("cncf"= cncf,"purity" = fit$purity))
   })
 
-  cncfs <- as.data.frame(do.call('rbind',cnas)) %>%
+  cncfs <- as.data.frame(do.call('rbind',lapply(cnas,function(x){x$cncf}))) %>%
     dplyr::rename(sample = ID) %>%
     mutate(chrom = as.numeric(as.character(chrom)),
            start = as.numeric(as.character(start)),
@@ -62,14 +69,11 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
            num.mark = as.numeric(as.character(num.mark)),
            seg.mean = as.numeric(as.character(seg.mean))) %>%
     select(sample, chrom, start, end, num.mark, seg.mean)
-  out <- CNregions.mod(seg = cncfs, epsilon = 0)
+  out <- CNregions.mod(seg = cncfs, epsilon = epsilon)
 
-  temp <- as.data.frame(do.call('rbind',cnas)) %>%
+  temp <- as.data.frame(do.call('rbind',lapply(cnas,function(x){x$cncf}))) %>%
     select(ID, chrom, loc.start, loc.end, num.mark, seg.mean)
 
-  outcome = cna.files
-  names(outcome) <- cna.files
-  facets.heatmap(seg = temp,epsilon = 0,outcome = outcome,patients=cna.files)
 
   info <- lapply(preProcFits, function(xx){
     # rcmat <- readSnpMatrix(filename=paste0(path,"/",x))
@@ -139,8 +143,11 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
   epsM <- epsM[-to.rm, ]
   epsm <- epsm[-to.rm, ]
 
-  dat_facets <- as.data.frame(do.call('rbind',cnas)) %>%
+  dat_facets <- as.data.frame(do.call('rbind',lapply(cnas,function(x){x$cncf}))) %>%
     select(ID, chrom, loc.start, loc.end, num.mark, seg.mean)
 
-  return(list("WM" = WM, "Wm" = Wm, "epsM" = epsM, "epsm" = epsm,"dat_facets" = dat_facets))
+  return(list("WM" = WM, "Wm" = Wm, "epsM" = epsM, "epsm" = epsm,
+              "dat_facets" = dat_facets,"purity" = unlist(lapply(cnas,function(x){x$purity}))))
+
+
 }
