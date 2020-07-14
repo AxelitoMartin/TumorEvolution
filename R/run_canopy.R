@@ -19,6 +19,7 @@
 #' Canopy
 #' foreach
 #' doParallel
+#' parallel
 
 
 run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.simrun = 100000, min.simrun = 10000,

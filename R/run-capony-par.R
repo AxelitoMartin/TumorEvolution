@@ -19,6 +19,7 @@
 #' Canopy
 #' foreach
 #' doParallel
+#' parallel
 
 canopy.sample.parallel.mod = function(R, X, WM, Wm, epsilonM, epsilonm, C = NULL,
                                   Y, K, numchain, max.simrun, min.simrun, writeskip, projectname,
