@@ -10,7 +10,7 @@ make_cna_mat(
   sample.names = NULL,
   cval = 100,
   snp.nbhd = 250,
-  epsilon = 0.005
+  epsilon = 0
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ make_cna_mat(
 
 \item{snp.nbhd}{Default is 250.}
 
-\item{epsilon}{Default is 0.005.}
+\item{epsilon}{Default is 0.}
 }
 \value{
 WM, Wm,epsM, epsm

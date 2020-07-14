@@ -15,8 +15,7 @@ run_canopy(
   min.simrun = 10000,
   burnin = 10,
   thin = 5,
-  parallel = FALSE,
-  nCores = 1
+  nCores = NULL
 )
 }
 \arguments{
@@ -40,7 +39,7 @@ run_canopy(
 
 \item{thin}{Thining parameter for the MCMC. Default is 5.}
 
-\item{parallel}{Should this be run in parallel. Default is FALSE.}
+\item{nCores}{Number of cores to be used.}
 }
 \value{
 Y

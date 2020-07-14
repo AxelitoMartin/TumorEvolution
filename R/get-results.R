@@ -5,6 +5,9 @@
 #' @param tree
 #' @param projectname Name of the project to save results.
 #' @param path Relative path to where results should be saved. Default is current directory.
+#' @param path_mut Relative path to the mutation files used to run canopy
+#' @param mut.files Mutation file names (same order as in the canopy run)
+#' @param sample.names Sample names for the files
 #' @return Results pdf
 #' @export
 #' @examples
@@ -12,7 +15,8 @@
 #' pheatmap
 #' gnomeR
 
-get_results_canopy <- function(cna.obj, tree, projectname, path = ".",path_mut = ".", mut.files){
+get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
+                               path_mut = ".", mut.files,sample.names = NULL){
 
   pdf(paste0(path,"/",projectname,"_results.pdf"),width = 12)
 
@@ -67,7 +71,8 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",path_mut =
   }
   pos <- unique(pos)
   rownames(CCF) <- pos
-  pheatmap(t(CCF[order(apply(CCF,1,mean),decreasing = T),]),fontsize_col = 4.2,cluster_cols = F)
+  out <- pheatmap(t(CCF[order(apply(CCF,1,mean),decreasing = T),]),fontsize_col = 4.2,cluster_cols = F)
+  out
 
   canopy_plottree_mod(tree = tree, save = T, rdata.name = paste0(path,"/",projectname,"_muts.Rdata"))
 
@@ -95,7 +100,7 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",path_mut =
   colnames(replace.mut) <- colnames(temp)
   rownames(replace.mut) <- rownames(temp)
 
-  out.mut <- pheatmap(replace.mut[out$tree_row$order,out$tree_col$order],fontsize_col = 4.2,cluster_rows = F,cluster_cols = F)
+  out.mut <- pheatmap(replace.mut[out$tree_row$order,order(apply(CCF,1,mean),decreasing = T)],fontsize_col = 4.2,cluster_rows = F,cluster_cols = F)
   out.mut
 
   out <- pheatmap(t(tree$CCF),fontsize_col = 4.2)

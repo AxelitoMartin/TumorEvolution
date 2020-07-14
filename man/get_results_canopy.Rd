@@ -4,12 +4,26 @@
 \alias{get_results_canopy}
 \title{get_results}
 \usage{
-get_results_canopy(cna.obj, tree, projectname, path = ".")
+get_results_canopy(
+  cna.obj,
+  tree,
+  projectname,
+  path = ".",
+  path_mut = ".",
+  mut.files,
+  sample.names = NULL
+)
 }
 \arguments{
 \item{projectname}{Name of the project to save results.}
 
 \item{path}{Relative path to where results should be saved. Default is current directory.}
+
+\item{path_mut}{Relative path to the mutation files used to run canopy}
+
+\item{mut.files}{Mutation file names (same order as in the canopy run)}
+
+\item{sample.names}{Sample names for the files}
 }
 \value{
 Results pdf
