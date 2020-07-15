@@ -37,9 +37,10 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
       get_ccf(alt = r["alt"], total = r["total"], tcn = r["tcn"], lcn = r["lcn"], purity = cna.obj$purity[i])$ccf
     }))
     )
+
     assign(paste0("s",i,"_sna"), get(paste0("s",i,"_sna"))%>%
              dplyr::rename(ccf = "apply(get(paste0(\"s\", i, \"_sna\")), 1, function(r) {") %>%
-             filter(!is.na(ccf)))
+             dplyr::filter(!is.na(ccf)))
   }
 
   pos <- c()
@@ -111,8 +112,24 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
                       color = temp.color[length(temp.color):1])
   out.mut
 
+  cna.mat <- lapply(1:length(mut.list), function(x){
+    temp <- gsub(" ","",strsplit(mut.list[[x]],split = ",")[[1]])
+    temp <- temp[grep("chr",temp)]
+    final <- as.data.frame(matrix(rep(x, length(sample.names)*length(temp)),
+                                  nrow = length(sample.names), ncol = length(temp)))
+    rownames(final) <- sample.names
+    colnames(final) <- temp
+    return(final)
+  })
+
+  cna.mat <- do.call('cbind',cna.mat)
+  pheatmap(cna.mat,color = temp.color[length(temp.color):1],
+           fontsize_col = 7,main = "CNA Split Heatmap",cluster_rows = F,cluster_cols = F)
+
   out <- pheatmap(t(tree$CCF)[out$tree_row$order,order(apply(CCF,1,mean),decreasing = T)],fontsize_col = 4.2,main = "Tree CCF Heatmap",cluster_rows = F,cluster_cols = F)
   out
+
+
 
   dev.off()
 }
