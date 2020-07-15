@@ -57,9 +57,9 @@ make_sna_mat <- function(mut.files = list.files(), path = ".", sample.names = NU
   rownames(X) <- pos
   rownames(R) <- pos
 
-  for(i in 1:ncol(X)){
-    X[X[,i] == 0,i] <- median(X[X[,i] != 0,i])
-  }
+  # for(i in 1:ncol(X)){
+  #   X[X[,i] == 0,i] <- median(X[X[,i] != 0,i])
+  # }
 
   return(list("X"=X, "R"=R))
 }
