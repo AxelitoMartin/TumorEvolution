@@ -25,6 +25,8 @@
 run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.simrun = 100000, min.simrun = 10000,
                        burnin = 10, thin = 5,nCores = NULL){
 
+  set.seed(21071993)
+
   R <- sna_obj$R
   X <- sna_obj$X
   WM <- cna_obj$WM

@@ -7,6 +7,7 @@
 #' @param burnin Burn-in period for the MCMC. Default is 10.
 #' @param thin Thining parameter for the MCMC. Default is 5.
 #' @param cutoff post configuration cutoff. Default is 0.05
+#' @param optK Optimal number of subclones. Default is NULL calculated from BIC
 #' @return Optimal phylogeny.
 #' @export
 #' @examples
@@ -17,11 +18,12 @@
 
 
 opt_phylo <- function(sampchain, projectname, K, numchain = 15,
-                      path = ".", burnin = 10, thin = 5, cutoff = 0.05){
-  bic = canopy.BIC(sampchain = sampchain, projectname = projectname, K = K,
-                   numchain = numchain, burnin = burnin, thin = thin, pdf = FALSE)
-  optK = K[which.max(bic)]
-
+                      path = ".", burnin = 10, thin = 5, cutoff = 0.05, optK = NULL){
+  if(is.null(optK)){
+    bic = canopy.BIC(sampchain = sampchain, projectname = projectname, K = K,
+                     numchain = numchain, burnin = burnin, thin = thin, pdf = FALSE)
+    optK = K[which.max(bic)]
+  }
   post = canopy.post(sampchain = sampchain, projectname = projectname, K = K,
                      numchain = numchain, burnin = burnin, thin = thin,
                      optK = optK, post.config.cutoff = cutoff)
