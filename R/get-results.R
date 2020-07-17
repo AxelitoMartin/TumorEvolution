@@ -8,6 +8,7 @@
 #' @param path_mut Relative path to the mutation files used to run canopy
 #' @param mut.files Mutation file names (same order as in the canopy run)
 #' @param sample.names Sample names for the files
+#' @param cex_cna size of font in CNA heatmap
 #' @return Results pdf
 #' @export
 #' @examples
@@ -17,7 +18,8 @@
 #' RColorBrewer
 
 get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
-                               path_mut = ".", mut.files,sample.names = NULL){
+                               path_mut = ".", mut.files,sample.names = NULL,
+                               cex_cna = 5){
 
   pdf(paste0(path,"/",projectname,"_results.pdf"),width = 12)
 
@@ -124,7 +126,7 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
 
   cna.mat <- do.call('cbind',cna.mat)
   pheatmap(cna.mat,color = temp.color[length(temp.color):1],
-           fontsize_col = 6,main = "CNA Split Heatmap",cluster_rows = F,cluster_cols = F)
+           fontsize_col = cex_cna,main = "CNA Split Heatmap",cluster_rows = F,cluster_cols = F)
 
   out <- pheatmap(t(tree$CCF)[out$tree_row$order,order(apply(CCF,1,mean),decreasing = T)],fontsize_col = 4.2,main = "Tree CCF Heatmap",cluster_rows = F,cluster_cols = F)
   out
