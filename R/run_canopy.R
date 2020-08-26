@@ -10,6 +10,7 @@
 #' @param burnin Burn-in period for the MCMC. Default is 10.
 #' @param thin Thining parameter for the MCMC. Default is 5.
 #' @param nCores Number of cores to be used.
+#' @param plot.likelihood Should likelihoods be plotted
 #' @return Y
 #' @export
 #' @examples
@@ -23,7 +24,7 @@
 
 
 run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.simrun = 100000, min.simrun = 10000,
-                       burnin = 10, thin = 5,nCores = NULL){
+                       burnin = 10, thin = 5,nCores = NULL,plot.likelihood = FALSE){
 
   set.seed(21071993)
 
@@ -42,7 +43,7 @@ run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.s
                               numchain = numchain, max.simrun = max.simrun,
                               min.simrun = min.simrun, writeskip = 200,
                               projectname = projectname, cell.line = FALSE,
-                              plot.likelihood = FALSE)
+                              plot.likelihood = plot.likelihood)
 
   if(!is.null(nCores)){
 
