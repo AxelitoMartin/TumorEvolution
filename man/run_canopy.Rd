@@ -15,7 +15,8 @@ run_canopy(
   min.simrun = 10000,
   burnin = 10,
   thin = 5,
-  nCores = NULL
+  nCores = NULL,
+  plot.likelihood = FALSE
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ run_canopy(
 \item{thin}{Thining parameter for the MCMC. Default is 5.}
 
 \item{nCores}{Number of cores to be used.}
+
+\item{plot.likelihood}{Should likelihoods be plotted}
 }
 \value{
 Y
