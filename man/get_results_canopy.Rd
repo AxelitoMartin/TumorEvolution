@@ -11,7 +11,8 @@ get_results_canopy(
   path = ".",
   path_mut = ".",
   mut.files,
-  sample.names = NULL
+  sample.names = NULL,
+  cex_cna = 5
 )
 }
 \arguments{
@@ -24,6 +25,8 @@ get_results_canopy(
 \item{mut.files}{Mutation file names (same order as in the canopy run)}
 
 \item{sample.names}{Sample names for the files}
+
+\item{cex_cna}{size of font in CNA heatmap}
 }
 \value{
 Results pdf

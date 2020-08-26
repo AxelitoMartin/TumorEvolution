@@ -5,6 +5,7 @@
 #' @param cval Default is 100.
 #' @param snp.nbhd Default is 250.
 #' @param epsilon Default is 0.
+#' @param min.nhet Minimal number of hets to be found in segments to be accounted for
 #' @return WM, Wm,epsM, epsm
 #' @export
 #' @examples
@@ -16,7 +17,7 @@
 #' gnomeR
 
 make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NULL,
-                         cval = 100, snp.nbhd = 250,epsilon = 0){
+                         cval = 100, snp.nbhd = 250,epsilon = 0,min.nhet = 5){
 
 
   if(!is.null(sample.names))
@@ -104,15 +105,15 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
           m_N = rCountN - M_N
         )
 
-      if(nrow(temp) > 4){
+      if(nrow(temp) >= min.nhet){
 
         Nt = nrow(temp)
 
         W_M = 1/Nt * sum(temp$M_T/temp$M_N) * adj.count
-        eps_M = sqrt(( sum((temp$M_T/temp$M_N)^2) - Nt*W_M^2 )/(Nt *(Nt-1)))
+        eps_M = sqrt(( sum(((temp$M_T/temp$M_N)* adj.count)^2) - Nt*W_M^2 )/(Nt *(Nt-1)))
 
         W_m = 1/Nt * sum(temp$m_T/temp$m_N) * adj.count
-        eps_m = sqrt(( sum((temp$m_T/temp$m_N)^2) - Nt*W_m^2 )/(Nt *(Nt-1)))
+        eps_m = sqrt(( sum(((temp$m_T/temp$m_N)* adj.count)^2) - Nt*W_m^2 )/(Nt *(Nt-1)))
       }
       else{
         W_M  = W_m = eps_M = eps_m = NA

@@ -12,7 +12,8 @@ opt_phylo(
   path = ".",
   burnin = 10,
   thin = 5,
-  cutoff = 0.05
+  cutoff = 0.05,
+  optK = NULL
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ opt_phylo(
 \item{thin}{Thining parameter for the MCMC. Default is 5.}
 
 \item{cutoff}{post configuration cutoff. Default is 0.05}
+
+\item{optK}{Optimal number of subclones. Default is NULL calculated from BIC}
 }
 \value{
 Optimal phylogeny.
