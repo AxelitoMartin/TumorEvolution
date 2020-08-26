@@ -54,7 +54,7 @@ run_canopy <- function(sna_obj, cna_obj, Y, projectname, K, numchain = 15, max.s
                                            numchain = numchain, max.simrun = max.simrun,
                                            min.simrun = min.simrun, writeskip = 200,
                                            projectname = projectname, cell.line = FALSE,
-                                           plot.likelihood = FALSE,nCores = nCores)
+                                           plot.likelihood = plot.likelihood,nCores = nCores)
     # cl <- makeCluster(nCores)
     # registerDoParallel(cl)
     #
