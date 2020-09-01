@@ -102,7 +102,8 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
       }
       return(ind)
     }), function(y){
-      return(rep(y[!is.na(y)],length(mut.files)))
+      if(!all(is.na(y))) return(rep(y[!is.na(y)],length(mut.files)))
+      else return(rep(length(mut.list)+1,length(mut.files)))
     }))
   colnames(replace.mut) <- colnames(temp)
   rownames(replace.mut) <- rownames(temp)
