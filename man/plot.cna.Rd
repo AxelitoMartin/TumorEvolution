@@ -6,6 +6,15 @@
 \usage{
 \method{plot}{cna}(dat, patients = NULL, ordered = NULL, outcome = NULL)
 }
+\arguments{
+\item{dat}{Data}
+
+\item{patients}{patients}
+
+\item{ordered}{ordered}
+
+\item{outcome}{outcome}
+}
 \value{
 facets heatmap
 }

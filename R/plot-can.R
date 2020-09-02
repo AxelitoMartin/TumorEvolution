@@ -1,5 +1,8 @@
 #' Plot CNA heatmap
-#' @param
+#' @param dat Data
+#' @param patients patients
+#' @param ordered ordered
+#' @param outcome outcome
 #' @return facets heatmap
 #' @export
 #' @examples
