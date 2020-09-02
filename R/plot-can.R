@@ -84,5 +84,5 @@ plot.cna <- function(dat, patients = NULL, ordered = NULL, outcome = NULL){
   p = levelplot(imagedata.ordered, panel = my.panel, scales = scales,
                 aspect = "fill", col.regions = bluered(256), xlab = "",
                 ylab = "", colorkey = colorkey)
-  return(list(p = p, out.cn = as.data.frame(dat$out.cn)))
+  return(p)
 }
