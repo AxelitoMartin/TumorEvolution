@@ -12,6 +12,9 @@
 #' dplyr
 #' dtplyr
 #' gnomeR
+#' gplots
+#' lattice
+#' tibble
 
 plot_cna <- function(dat, patients = NULL, ordered = NULL, outcome = NULL){
 
