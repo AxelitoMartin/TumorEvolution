@@ -11,6 +11,7 @@
 #' gnomeR
 
 plot.cna <- function(dat, patients = NULL, ordered = NULL, outcome = NULL){
+
   if(is.null(patients))
     patients <- rownames(dat)
   if (!is.null(outcome))
