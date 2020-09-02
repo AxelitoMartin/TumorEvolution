@@ -12,7 +12,8 @@ get_results_canopy(
   path_mut = ".",
   mut.files,
   sample.names = NULL,
-  cex_cna = 5
+  cex_cna = 5,
+  epsilon = 0
 )
 }
 \arguments{
@@ -27,6 +28,8 @@ get_results_canopy(
 \item{sample.names}{Sample names for the files}
 
 \item{cex_cna}{size of font in CNA heatmap}
+
+\item{epsilon}{Segment aggregation}
 }
 \value{
 Results pdf
