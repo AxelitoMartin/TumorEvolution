@@ -35,9 +35,9 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
 
   for(i in 1:length(mut.files)){
     assign(paste0("s",i,"_sna"),read.delim(paste0(path_mut,"/",mut.files[i])))
-    computeCCF(vaf = get(paste0("s",i,"_sna"))$alt/get(paste0("s",i,"_sna"))$total,
-               tt = get(paste0("s",i,"_sna"))$tcn, minor = get(paste0("s",i,"_sna"))$lcn,
-               purity = cna.obj$purity[i])
+    # computeCCF(vaf = get(paste0("s",i,"_sna"))$alt/get(paste0("s",i,"_sna"))$total,
+    #            tt = get(paste0("s",i,"_sna"))$tcn, minor = get(paste0("s",i,"_sna"))$lcn,
+    #            purity = cna.obj$purity[i])
 
     assign(paste0("s",i,"_sna") , cbind(get(paste0("s",i,"_sna")),apply(get(paste0("s",i,"_sna")),1,function(r){
       get_ccf(alt = r["alt"], total = r["total"], tcn = r["tcn"], lcn = r["lcn"], purity = cna.obj$purity[i])$ccf
@@ -91,7 +91,9 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
 
   sna.mut <- lapply(mut.list,function(x){
     temp <- gsub(" ","",strsplit(x,split = ",")[[1]])
-    temp <- temp[-grep("chr",temp)]
+    if(length(grep("chr",temp))>0)
+      temp <- temp[-grep("chr",temp)]
+    return(temp)
   })
 
   temp <- t(tree$CCF)
@@ -130,13 +132,12 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
   })
 
   cna.mat <- do.call('cbind',cna.mat)
-  pheatmap(cna.mat,color = temp.color[length(temp.color):1],
-           fontsize_col = cex_cna,main = "CNA Split Heatmap",cluster_rows = F,cluster_cols = F)
+  if(ncol(cna.mat) > 0)
+    pheatmap(cna.mat,color = temp.color[length(temp.color):1],
+             fontsize_col = cex_cna,main = "CNA Split Heatmap",cluster_rows = F,cluster_cols = F)
 
   out <- pheatmap(t(tree$CCF)[out$tree_row$order,order(apply(CCF,1,mean),decreasing = T)],fontsize_col = 4.2,main = "Tree CCF Heatmap",cluster_rows = F,cluster_cols = F)
   out
-
-
 
   dev.off()
 }
