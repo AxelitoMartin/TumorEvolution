@@ -139,11 +139,11 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
 
   if(is.null(sample.names)){
     colnames(WM) <- colnames(Wm) <- colnames(epsM) <-
-      colnames(epsm) <- rownames(Nvar) <- cna.files
+      colnames(epsm) <- colnames(Nvar) <- cna.files
   }
   else{
     colnames(WM) <- colnames(Wm) <- colnames(epsM) <-
-      colnames(epsm) <- rownames(Nvar) <- cna.files
+      colnames(epsm) <- colnames(Nvar) <- cna.files
   }
   rownames(WM) <- rownames(Wm) <- rownames(epsM) <-
     rownames(epsm) <- rownames(Nvar) <- colnames(out)
