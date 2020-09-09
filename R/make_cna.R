@@ -119,7 +119,7 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
         eps_m = sqrt(( sum(((temp$m_T/temp$m_N)* adj.count)^2) - Nt*W_m^2 )/(Nt *(Nt-1)))
       }
       else{
-        W_M  = W_m = eps_M = eps_m = NA
+        W_M  = W_m = eps_M = eps_m = Nvar = NA
       }
       return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M, "eps_m" = eps_m, "Nvar" = Nvar))
     })
@@ -137,11 +137,14 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
   epsm <- sapply(info,"[[","eps_m")
   Nvar <- sapply(info,"[[","Nvar")
 
-  if(is.null(sample.names))
-    colnames(WM) <- colnames(Wm) <- colnames(epsM) <- colnames(epsm) <- cna.files
+  if(is.null(sample.names)){
+    colnames(WM) <- colnames(Wm) <- colnames(epsM) <-
+      colnames(epsm) <- rownames(Nvar) <- cna.files
+  }
   else
     colnames(WM) <- colnames(Wm) <- colnames(epsM) <- colnames(epsm) <- sample.names
-  rownames(WM) <- rownames(Wm) <- rownames(epsM) <- rownames(epsm) <- colnames(out)
+  rownames(WM) <- rownames(Wm) <- rownames(epsM) <-
+    rownames(epsm) <- rownames(Nvar) <- colnames(out)
 
   to.rm <- unique(c(which(apply(epsM, 1, anyNA)),which(apply(epsm, 1, anyNA))))
   if(length(to.rm)>0){
@@ -149,6 +152,7 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
     Wm <- Wm[-to.rm, ]
     epsM <- epsM[-to.rm, ]
     epsm <- epsm[-to.rm, ]
+    Nvar <- Nvar[-to.rm,]
   }
   dat_facets <- as.data.frame(do.call('rbind',lapply(cnas,function(x){x$cncf}))) %>%
     select(ID, chrom, loc.start, loc.end, num.mark, seg.mean)
