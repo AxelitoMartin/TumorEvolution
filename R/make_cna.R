@@ -99,7 +99,7 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
                maploc <= end)
       Nvar <- nrow(temp)
 
-      temp <- xx$jointseg %>%
+      temp <- temp %>%
         filter(het == 1) %>%
         mutate(
           M_T = ifelse(vafT > 0.5, rCountT * vafT, rCountT - rCountT * vafT),
@@ -141,8 +141,10 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
     colnames(WM) <- colnames(Wm) <- colnames(epsM) <-
       colnames(epsm) <- rownames(Nvar) <- cna.files
   }
-  else
-    colnames(WM) <- colnames(Wm) <- colnames(epsM) <- colnames(epsm) <- sample.names
+  else{
+    colnames(WM) <- colnames(Wm) <- colnames(epsM) <-
+      colnames(epsm) <- rownames(Nvar) <- cna.files
+  }
   rownames(WM) <- rownames(Wm) <- rownames(epsM) <-
     rownames(epsm) <- rownames(Nvar) <- colnames(out)
 
