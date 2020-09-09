@@ -96,8 +96,11 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
       temp <- xx$jointseg %>%
         filter(chrom == chrm,
                maploc >= start,
-               maploc <= end,
-               het == 1) %>%
+               maploc <= end)
+      Nvar <- nrow(temp)
+
+      temp <- xx$jointseg %>%
+        filter(het == 1) %>%
         mutate(
           M_T = ifelse(vafT > 0.5, rCountT * vafT, rCountT - rCountT * vafT),
           M_N = ifelse(vafN > 0.5, rCountN * vafN, rCountN - rCountN * vafN),
@@ -118,19 +121,21 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
       else{
         W_M  = W_m = eps_M = eps_m = NA
       }
-      return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M, "eps_m" = eps_m))
+      return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M, "eps_m" = eps_m, "Nvar" = Nvar))
     })
     W_M <- sapply(mm,"[[","W_M")
     W_m <- sapply(mm,"[[","W_m")
     eps_M <- sapply(mm,"[[","eps_M")
     eps_m <- sapply(mm,"[[","eps_m")
-    return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M, "eps_m" = eps_m))
+    Nvar <- sapply(mm,"[[","Nvar")
+    return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M, "eps_m" = eps_m, "Nvar" = Nvar))
   })
 
   WM <- sapply(info,"[[","W_M")
   Wm <- sapply(info,"[[","W_m")
   epsM <- sapply(info,"[[","eps_M")
   epsm <- sapply(info,"[[","eps_m")
+  Nvar <- sapply(info,"[[","Nvar")
 
   if(is.null(sample.names))
     colnames(WM) <- colnames(Wm) <- colnames(epsM) <- colnames(epsm) <- cna.files
@@ -139,16 +144,16 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
   rownames(WM) <- rownames(Wm) <- rownames(epsM) <- rownames(epsm) <- colnames(out)
 
   to.rm <- unique(c(which(apply(epsM, 1, anyNA)),which(apply(epsm, 1, anyNA))))
-  WM <- WM[-to.rm, ]
-  Wm <- Wm[-to.rm, ]
-  epsM <- epsM[-to.rm, ]
-  epsm <- epsm[-to.rm, ]
-
+  if(length(to.rm)>0){
+    WM <- WM[-to.rm, ]
+    Wm <- Wm[-to.rm, ]
+    epsM <- epsM[-to.rm, ]
+    epsm <- epsm[-to.rm, ]
+  }
   dat_facets <- as.data.frame(do.call('rbind',lapply(cnas,function(x){x$cncf}))) %>%
     select(ID, chrom, loc.start, loc.end, num.mark, seg.mean)
 
-  return(list("WM" = WM, "Wm" = Wm, "epsM" = epsM, "epsm" = epsm,
+  return(list("WM" = WM, "Wm" = Wm, "epsM" = epsM, "epsm" = epsm, "Nvar" = Nvar,
               "dat_facets" = dat_facets,"purity" = unlist(lapply(cnas,function(x){x$purity}))))
-
 
 }
