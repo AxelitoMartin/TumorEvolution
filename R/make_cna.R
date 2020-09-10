@@ -129,6 +129,7 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
     eps_M <- sapply(mm,"[[","eps_M")
     eps_m <- sapply(mm,"[[","eps_m")
     Nvar <- sapply(mm,"[[","Nvar")
+    Nt <- sapply(mm,"[[","Nt")
     return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M,
                 "eps_m" = eps_m, "Nvar" = Nvar, "Nt" = Nt))
   })
@@ -138,6 +139,7 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
   epsM <- sapply(info,"[[","eps_M")
   epsm <- sapply(info,"[[","eps_m")
   Nvar <- sapply(info,"[[","Nvar")
+  Nt <- sapply(info,"[[","Nt")
 
   if(is.null(sample.names)){
     colnames(WM) <- colnames(Wm) <- colnames(epsM) <-
