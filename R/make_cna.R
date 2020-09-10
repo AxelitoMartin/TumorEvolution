@@ -158,8 +158,8 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
     Wm <- Wm[-to.rm, ]
     epsM <- epsM[-to.rm, ]
     epsm <- epsm[-to.rm, ]
-    Nvar <- Nvar[-to.rm,]
-    Nt <- Nt[-to.rm,]
+    # Nvar <- Nvar[-to.rm,]
+    # Nt <- Nt[-to.rm,]
   }
   dat_facets <- as.data.frame(do.call('rbind',lapply(cnas,function(x){x$cncf}))) %>%
     select(ID, chrom, loc.start, loc.end, num.mark, seg.mean)
