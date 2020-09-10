@@ -108,9 +108,9 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
           m_N = rCountN - M_N
         )
 
-      if(nrow(temp) >= min.nhet){
+      Nt = nrow(temp)
 
-        Nt = nrow(temp)
+      if(nrow(temp) >= min.nhet){
 
         W_M = 1/Nt * sum(temp$M_T/temp$M_N) * adj.count
         eps_M = sqrt(( sum(((temp$M_T/temp$M_N)* adj.count)^2) - Nt*W_M^2 )/(Nt *(Nt-1)))
@@ -119,7 +119,8 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
         eps_m = sqrt(( sum(((temp$m_T/temp$m_N)* adj.count)^2) - Nt*W_m^2 )/(Nt *(Nt-1)))
       }
       else{
-        W_M  = W_m = eps_M = eps_m = Nvar = Nt = NA
+        W_M  = W_m = eps_M = eps_m = NA
+
       }
       return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M,
                   "eps_m" = eps_m, "Nvar" = Nvar, "Nt" = Nt))
