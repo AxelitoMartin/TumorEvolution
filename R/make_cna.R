@@ -121,14 +121,16 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
       else{
         W_M  = W_m = eps_M = eps_m = Nvar = NA
       }
-      return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M, "eps_m" = eps_m, "Nvar" = Nvar))
+      return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M,
+                  "eps_m" = eps_m, "Nvar" = Nvar, "Nt" = Nt))
     })
     W_M <- sapply(mm,"[[","W_M")
     W_m <- sapply(mm,"[[","W_m")
     eps_M <- sapply(mm,"[[","eps_M")
     eps_m <- sapply(mm,"[[","eps_m")
     Nvar <- sapply(mm,"[[","Nvar")
-    return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M, "eps_m" = eps_m, "Nvar" = Nvar))
+    return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M,
+                "eps_m" = eps_m, "Nvar" = Nvar, "Nt" = Nt))
   })
 
   WM <- sapply(info,"[[","W_M")
@@ -139,14 +141,14 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
 
   if(is.null(sample.names)){
     colnames(WM) <- colnames(Wm) <- colnames(epsM) <-
-      colnames(epsm) <- colnames(Nvar) <- cna.files
+      colnames(epsm) <- colnames(Nvar) <- colnames(Nt) <- cna.files
   }
   else{
     colnames(WM) <- colnames(Wm) <- colnames(epsM) <-
-      colnames(epsm) <- colnames(Nvar) <- cna.files
+      colnames(epsm) <- colnames(Nvar) <- colnames(Nt) <- cna.files
   }
   rownames(WM) <- rownames(Wm) <- rownames(epsM) <-
-    rownames(epsm) <- rownames(Nvar) <- colnames(out)
+    rownames(epsm) <- rownames(Nvar) <- rownames(Nt) <- colnames(out)
 
   to.rm <- unique(c(which(apply(epsM, 1, anyNA)),which(apply(epsm, 1, anyNA))))
   if(length(to.rm)>0){
@@ -155,11 +157,12 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
     epsM <- epsM[-to.rm, ]
     epsm <- epsm[-to.rm, ]
     Nvar <- Nvar[-to.rm,]
+    Nt <- Nt[-to.rm,]
   }
   dat_facets <- as.data.frame(do.call('rbind',lapply(cnas,function(x){x$cncf}))) %>%
     select(ID, chrom, loc.start, loc.end, num.mark, seg.mean)
 
-  return(list("WM" = WM, "Wm" = Wm, "epsM" = epsM, "epsm" = epsm, "Nvar" = Nvar,
+  return(list("WM" = WM, "Wm" = Wm, "epsM" = epsM, "epsm" = epsm, "Nvar" = Nvar, "Nt" = Nt,
               "dat_facets" = dat_facets,"purity" = unlist(lapply(cnas,function(x){x$purity}))))
 
 }
