@@ -119,7 +119,7 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
         eps_m = sqrt(( sum(((temp$m_T/temp$m_N)* adj.count)^2) - Nt*W_m^2 )/(Nt *(Nt-1)))
       }
       else{
-        W_M  = W_m = eps_M = eps_m = Nvar = NA
+        W_M  = W_m = eps_M = eps_m = Nvar = Nt = NA
       }
       return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M,
                   "eps_m" = eps_m, "Nvar" = Nvar, "Nt" = Nt))
