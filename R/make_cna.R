@@ -74,8 +74,8 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
     filter(num.mark > min.num.mark)
   out <- CNregions.mod(seg = cncfs, epsilon = epsilon)
 
-  temp <- as.data.frame(do.call('rbind',lapply(cnas,function(x){x$cncf}))) %>%
-    select(ID, chrom, loc.start, loc.end, num.mark, seg.mean)
+  # temp <- as.data.frame(do.call('rbind',lapply(cnas,function(x){x$cncf}))) %>%
+  #   select(ID, chrom, loc.start, loc.end, num.mark, seg.mean)
 
 
   info <- lapply(preProcFits, function(xx){
@@ -168,6 +168,7 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
     select(ID, chrom, loc.start, loc.end, num.mark, seg.mean)
 
   return(list("WM" = WM, "Wm" = Wm, "epsM" = epsM, "epsm" = epsm, "Nvar" = Nvar, "Nt" = Nt,
-              "dat_facets" = dat_facets,"purity" = unlist(lapply(cnas,function(x){x$purity}))))
+              "dat_facets" = dat_facets, "cncfs" = cncfs,
+              "purity" = unlist(lapply(cnas,function(x){x$purity}))))
 
 }
