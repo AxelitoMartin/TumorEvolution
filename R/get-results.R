@@ -29,7 +29,7 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
   # names(outcome) <- dat_facets$ID
   # out <- facets.heatmap(seg = dat_facets,epsilon = 0,outcome = outcome,patients=dat_facets$ID)
   temp <- facets.dat(seg = cna.obj$dat_facets,epsilon = epsilon)
-  out.cn <- as.data.frame(temp$out.cn) %>% dplyr::select(rownames(cna$WM))
+  out.cn <- as.data.frame(temp$out.cn) %>% dplyr::select(rownames(cna.obj$WM))
   print(plot_cna(dat = out.cn, outcome = rownames(out.cn)))
   # print(out$p)
 

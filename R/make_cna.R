@@ -6,6 +6,7 @@
 #' @param snp.nbhd Default is 250.
 #' @param epsilon Default is 0.
 #' @param min.nhet Minimal number of hets to be found in segments to be accounted for
+#' @param min.num.mark Minimal number of variants to be found in segments to be accounted for
 #' @return WM, Wm,epsM, epsm
 #' @export
 #' @examples
@@ -17,8 +18,7 @@
 #' gnomeR
 
 make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NULL,
-                         cval = 100, snp.nbhd = 250,epsilon = 0,
-                         min.nhet = 5,min.num.mark = 50){
+                         cval = 100, snp.nbhd = 250,epsilon = 0,min.nhet = 5, min.num.mark = 50){
 
 
   if(!is.null(sample.names))
@@ -74,8 +74,8 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
     filter(num.mark > min.num.mark)
   out <- CNregions.mod(seg = cncfs, epsilon = epsilon)
 
-  # temp <- as.data.frame(do.call('rbind',lapply(cnas,function(x){x$cncf}))) %>%
-  #   select(ID, chrom, loc.start, loc.end, num.mark, seg.mean)
+  temp <- as.data.frame(do.call('rbind',lapply(cnas,function(x){x$cncf}))) %>%
+    select(ID, chrom, loc.start, loc.end, num.mark, seg.mean)
 
 
   info <- lapply(preProcFits, function(xx){
@@ -110,9 +110,9 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
           m_N = rCountN - M_N
         )
 
-      if(nrow(temp) >= min.nhet){
+      Nt = nrow(temp)
 
-        Nt = nrow(temp)
+      if(nrow(temp) >= min.nhet){
 
         W_M = 1/Nt * sum(temp$M_T/temp$M_N) * adj.count
         eps_M = sqrt(( sum(((temp$M_T/temp$M_N)* adj.count)^2) - Nt*W_M^2 )/(Nt *(Nt-1)))
@@ -121,16 +121,20 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
         eps_m = sqrt(( sum(((temp$m_T/temp$m_N)* adj.count)^2) - Nt*W_m^2 )/(Nt *(Nt-1)))
       }
       else{
-        W_M  = W_m = eps_M = eps_m = Nvar = NA
+        W_M  = W_m = eps_M = eps_m = NA
+
       }
-      return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M, "eps_m" = eps_m, "Nvar" = Nvar))
+      return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M,
+                  "eps_m" = eps_m, "Nvar" = Nvar, "Nt" = Nt))
     })
     W_M <- sapply(mm,"[[","W_M")
     W_m <- sapply(mm,"[[","W_m")
     eps_M <- sapply(mm,"[[","eps_M")
     eps_m <- sapply(mm,"[[","eps_m")
     Nvar <- sapply(mm,"[[","Nvar")
-    return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M, "eps_m" = eps_m, "Nvar" = Nvar))
+    Nt <- sapply(mm,"[[","Nt")
+    return(list("W_M" = W_M, "W_m" = W_m, "eps_M" = eps_M,
+                "eps_m" = eps_m, "Nvar" = Nvar, "Nt" = Nt))
   })
 
   WM <- sapply(info,"[[","W_M")
@@ -138,17 +142,18 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
   epsM <- sapply(info,"[[","eps_M")
   epsm <- sapply(info,"[[","eps_m")
   Nvar <- sapply(info,"[[","Nvar")
+  Nt <- sapply(info,"[[","Nt")
 
   if(is.null(sample.names)){
     colnames(WM) <- colnames(Wm) <- colnames(epsM) <-
-      colnames(epsm) <- colnames(Nvar) <- cna.files
+      colnames(epsm) <- colnames(Nvar) <- colnames(Nt) <- cna.files
   }
   else{
     colnames(WM) <- colnames(Wm) <- colnames(epsM) <-
-      colnames(epsm) <- colnames(Nvar) <- cna.files
+      colnames(epsm) <- colnames(Nvar) <- colnames(Nt) <- cna.files
   }
   rownames(WM) <- rownames(Wm) <- rownames(epsM) <-
-    rownames(epsm) <- rownames(Nvar) <- colnames(out)
+    rownames(epsm) <- rownames(Nvar) <- rownames(Nt) <- colnames(out)
 
   to.rm <- unique(c(which(apply(epsM, 1, anyNA)),which(apply(epsm, 1, anyNA))))
   if(length(to.rm)>0){
@@ -156,7 +161,8 @@ make_cna_mat <- function(cna.files = list.files(), path = ".", sample.names = NU
     Wm <- Wm[-to.rm, ]
     epsM <- epsM[-to.rm, ]
     epsm <- epsm[-to.rm, ]
-    Nvar <- Nvar[-to.rm,]
+    # Nvar <- Nvar[-to.rm,]
+    # Nt <- Nt[-to.rm,]
   }
   dat_facets <- as.data.frame(do.call('rbind',lapply(cnas,function(x){x$cncf}))) %>%
     select(ID, chrom, loc.start, loc.end, num.mark, seg.mean)

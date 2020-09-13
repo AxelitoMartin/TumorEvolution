@@ -11,7 +11,8 @@ make_cna_mat(
   cval = 100,
   snp.nbhd = 250,
   epsilon = 0,
-  min.nhet = 5
+  min.nhet = 5,
+  min.num.mark = 50
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ make_cna_mat(
 \item{epsilon}{Default is 0.}
 
 \item{min.nhet}{Minimal number of hets to be found in segments to be accounted for}
+
+\item{min.num.mark}{Minimal number of variants to be found in segments to be accounted for}
 }
 \value{
 WM, Wm,epsM, epsm
