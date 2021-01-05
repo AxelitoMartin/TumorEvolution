@@ -111,8 +111,8 @@ canopy_plottree_mod <- function (tree, pdf = NULL, pdf.name = NULL,
     txt.temp = paste("mut", i, ": ", paste(c(sna.name[which(snaedge ==
                                                               edge.label[i])], cna.name[which(cnaedge == edge.label[i])]),
                                            collapse = ", "), sep = "")
-    text(x = 0, y = 0.95 - 0.1 * (i - 1), txt.temp, pos = 4,
-         cex = 1.2)
+    # text(x = 0, y = 0.95 - 0.1 * (i - 1), txt.temp, pos = 4,
+    #      cex = 1.2)
     txt.output[i, 1] = txt.temp
   }
   if (txt) {
