@@ -8,6 +8,7 @@
 #' @param txt.name
 #' @param save
 #' @param rdata.name
+#' @param cex_names
 #' @return tree, mutation list
 #' @export
 #' @examples
@@ -17,8 +18,18 @@
 #' @import
 #' Canopy
 
-canopy_plottree_mod <- function (tree, pdf = NULL, pdf.name = NULL, txt = NULL, txt.name = NULL,save = FALSE, rdata.name = NULL)
+canopy_plottree_mod <- function (tree, pdf = NULL, pdf.name = NULL,
+                                 txt = NULL, txt.name = NULL,save = FALSE,
+                                 rdata.name = NULL, cex_names = 1)
 {
+  # reformat tree mat #
+  cl = stats::hclust(stats::dist(t(tree$P)), method = "ward")
+  tree.ordered = t(t(tree$P)[cl$order, ])
+  test_tree <- tree
+  test_tree$P <- tree.ordered
+  tree <- test_tree
+  #####################
+
   if (is.null(pdf)) {
     pdf = FALSE
   }
@@ -76,7 +87,7 @@ canopy_plottree_mod <- function (tree, pdf = NULL, pdf.name = NULL, txt = NULL, 
   P = tree$P
   image(1:nrow(P), 1:ncol(P), axes = FALSE, ylab = "", xlab = "",
         P, breaks = 0:100/100, col = fields::tim.colors(100))
-  axis(4, at = 1:ncol(P), colnames(P), cex.axis = 1.2, las = 1,
+  axis(4, at = 1:ncol(P), colnames(P), cex.axis = cex_names, las = 1,
        tick = FALSE)
   abline(h = seq(0.5, ncol(P) + 0.5, 1), v = seq(0.5, nrow(P) +
                                                    0.5, 1), col = "grey")

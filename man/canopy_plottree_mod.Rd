@@ -11,7 +11,8 @@ canopy_plottree_mod(
   txt = NULL,
   txt.name = NULL,
   save = FALSE,
-  rdata.name = NULL
+  rdata.name = NULL,
+  cex_names = 1
 )
 }
 \value{
