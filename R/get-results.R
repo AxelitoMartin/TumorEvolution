@@ -10,6 +10,7 @@
 #' @param sample.names Sample names for the files
 #' @param cex_cna size of font in CNA heatmap
 #' @param epsilon Segment aggregation
+#' @param cex_names
 #' @return Results pdf
 #' @export
 #' @examples
@@ -21,7 +22,7 @@
 
 get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
                                path_mut = ".", mut.files,sample.names = NULL,
-                               cex_cna = 5,epsilon = 0){
+                               cex_cna = 5,epsilon = 0, cex_names = 1){
 
   pdf(paste0(path,"/",projectname,"_results.pdf"),width = 12)
 
