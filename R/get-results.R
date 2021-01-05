@@ -10,7 +10,7 @@
 #' @param sample.names Sample names for the files
 #' @param cex_cna size of font in CNA heatmap
 #' @param epsilon Segment aggregation
-#' @param cex_names
+#' @param cex_names name sizes
 #' @return Results pdf
 #' @export
 #' @examples
@@ -95,7 +95,9 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
   out
   temp.order <- rownames(CCF[order(apply(CCF,1,mean),decreasing = T),])
 
-  canopy_plottree_mod(tree = tree, save = T, rdata.name = paste0(path,"/",projectname,"_muts.Rdata"),cex_names = cex_names)
+  canopy_plottree_mod(tree = tree, save = T,
+                      rdata.name = paste0(path,"/",projectname,"_muts.Rdata"),
+                      cex_names = cex_names)
 
   load(paste0(path,"/",projectname,"_muts.Rdata"))
 
