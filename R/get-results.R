@@ -18,6 +18,9 @@
 #' gnomeR
 #' RColorBrewer
 
+remove.packages("S4Vectors")
+BiocManager::install(pkgs = "S4Vectors",version="3.7")
+
 get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
                                path_mut = ".", mut.files,sample.names = NULL,
                                cex_cna = 5,epsilon = 0){
@@ -144,8 +147,8 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
     pheatmap(cna.mat,color = temp.color[length(temp.color):1],
              fontsize_col = cex_cna,main = "CNA Split Heatmap",cluster_rows = F,cluster_cols = F)
 
-  out <- pheatmap(t(tree$CCF)[out$tree_row$order,order(apply(CCF,1,mean),decreasing = T)],fontsize_col = 4.2,main = "Tree CCF Heatmap",cluster_rows = F,cluster_cols = F)
-  out
+  # out <- pheatmap(t(tree$CCF)[out$tree_row$order,order(apply(CCF,1,mean),decreasing = T)],fontsize_col = 4.2,main = "Tree CCF Heatmap",cluster_rows = F,cluster_cols = F)
+  # out
 
   dev.off()
 }
