@@ -18,8 +18,6 @@
 #' gnomeR
 #' RColorBrewer
 
-remove.packages("S4Vectors")
-BiocManager::install(pkgs = "S4Vectors",version="3.7")
 
 get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
                                path_mut = ".", mut.files,sample.names = NULL,

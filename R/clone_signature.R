@@ -12,8 +12,6 @@
 #' @export
 #' @examples
 #' @import
-#' mutSignatures
-#' BSgenome.Hsapiens.UCSC.hg19
 #' ggplot2
 #' dplyr
 #' dtplyr
@@ -22,5 +20,5 @@
 
 
 clone_signature <- function(clone_mut, maf, sample.names, num_sign = 5, projectname = "", path = ".", num_parallelCores = 1){
-
+  print("Not working")
 }
