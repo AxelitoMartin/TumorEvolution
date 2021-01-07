@@ -11,6 +11,7 @@
 #' @param cex_cna size of font in CNA heatmap
 #' @param epsilon Segment aggregation
 #' @param cex_names name sizes
+#' @param tree_ccf should the tree CCF
 #' @return Results pdf
 #' @export
 #' @examples
@@ -22,7 +23,7 @@
 
 get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
                                path_mut = ".", mut.files,sample.names = NULL,
-                               cex_cna = 5,epsilon = 0, cex_names = 1){
+                               cex_cna = 5,epsilon = 0, cex_names = 1,tree_ccf = FALSE){
 
   pdf(paste0(path,"/",projectname,"_results.pdf"),width = 12)
 
@@ -148,8 +149,10 @@ get_results_canopy <- function(cna.obj, tree, projectname, path = ".",
     pheatmap(cna.mat,color = temp.color[length(temp.color):1],
              fontsize_col = cex_cna,main = "CNA Split Heatmap",cluster_rows = F,cluster_cols = F)
 
-  # out <- pheatmap(t(tree$CCF)[out$tree_row$order,order(apply(CCF,1,mean),decreasing = T)],fontsize_col = 4.2,main = "Tree CCF Heatmap",cluster_rows = F,cluster_cols = F)
-  # out
+  if(tree_ccf){
+    out <- pheatmap(t(tree$CCF)[out$tree_row$order,order(apply(CCF,1,mean),decreasing = T)],fontsize_col = 4.2,main = "Tree CCF Heatmap",cluster_rows = F,cluster_cols = F)
+    out
+  }
 
   dev.off()
 }

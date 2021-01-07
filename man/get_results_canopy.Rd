@@ -13,7 +13,9 @@ get_results_canopy(
   mut.files,
   sample.names = NULL,
   cex_cna = 5,
-  epsilon = 0
+  epsilon = 0,
+  cex_names = 1,
+  tree_ccf = FALSE
 )
 }
 \arguments{
@@ -30,6 +32,10 @@ get_results_canopy(
 \item{cex_cna}{size of font in CNA heatmap}
 
 \item{epsilon}{Segment aggregation}
+
+\item{cex_names}{name sizes}
+
+\item{tree_ccf}{should the tree CCF}
 }
 \value{
 Results pdf

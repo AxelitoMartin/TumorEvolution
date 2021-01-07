@@ -12,7 +12,7 @@ canopy_plottree_mod(
   txt.name = NULL,
   save = FALSE,
   rdata.name = NULL,
-  cex_names = 1
+  cex_names = NULL
 )
 }
 \value{
