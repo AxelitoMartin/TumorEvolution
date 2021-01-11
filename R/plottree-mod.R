@@ -23,11 +23,11 @@ canopy_plottree_mod <- function (tree, pdf = NULL, pdf.name = NULL,
                                  rdata.name = NULL, cex_names = NULL)
 {
   # reformat tree mat #
-  cl = stats::hclust(stats::dist(t(tree$P)), method = "ward")
-  tree.ordered = t(t(tree$P)[cl$order, ])
-  test_tree <- tree
-  test_tree$P <- tree.ordered
-  tree <- test_tree
+  # cl = stats::hclust(stats::dist(t(tree$P)), method = "ward")
+  # tree.ordered = t(t(tree$P)[cl$order, ])
+  # test_tree <- tree
+  # test_tree$P <- tree.ordered
+  # tree <- test_tree
   #####################
 
   if (is.null(pdf)) {
